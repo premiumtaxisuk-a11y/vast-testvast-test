@@ -1,0 +1,14 @@
+services:
+  vast-host:
+    build: .
+    container_name: vast-host
+    restart: unless-stopped
+    # dacă ai nvidia-container-toolkit, asta activează GPU în container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
